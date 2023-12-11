@@ -25,7 +25,7 @@ class Server {
         this.app.use('/documentacion', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
     }
     config() {
-        this.app.set('port', process.env.PORT || 3001); //Se usa el puerto 3000 o el que se le asigne
+        this.app.set('port', process.env.PORT || 3000); //Se usa el puerto 3000 o el que se le asigne
         this.app.use((0, morgan_1.default)('dev')); //Se usa morgan para ver las peticiones que se hacen al servidor
         this.app.use((0, cors_1.default)()); //Se usa cors para que angular pueda acceder al servidor
         this.app.use(express_1.default.json()); //Se usa express para que el servidor pueda entender json
