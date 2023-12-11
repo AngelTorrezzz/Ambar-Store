@@ -1,0 +1,2126 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API Ambar Store",
+        "description": "<html><body>Documentacion de la tienda <b>Ambar Store</b></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3001",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Apartados",
+            "description": "API para obtener información de los apartados de la tienda Ambar Store"
+        },
+        {
+            "name": "Carritos",
+            "description": "API para obtener información de los carritos de la tienda Ambar Store"
+        },
+        {
+            "name": "Descuentos",
+            "description": "API para obtener información de los descuentos de la tienda Ambar Store"
+        },
+        {
+            "name": "Productos",
+            "description": "API para obtener información de los productos de la tienda Ambar Store"
+        },
+        {
+            "name": "Rangos Cliente",
+            "description": "API para obtener información de los rangos de cliente de la tienda Ambar Store"
+        },
+        {
+            "name": "Tipos Productos",
+            "description": "API para obtener información de los tipos de productos de la tienda Ambar Store"
+        },
+        {
+            "name": "Usuarios",
+            "description": "API para obtener información de los usuarios de la tienda Ambar Store"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/apartados/listar_liquidados": {
+            "get": {
+                "tags": ["Apartados"],
+                "summary": "Listado de todos los apartados LIQUIDADOS que existen en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los apartados LIQUIDADOS que existen en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los apartados LIQUIDADOS en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "producto": "Dormilonas plata",
+                                    "nombre_usuario": "Costeño",
+                                    "total_apartado": 250,
+                                    "fecha_apartado": "2023-12-01T06:00:00.000Z",
+                                    "hora_apartado": "06:30:00",
+                                    "fecha_liquidado": "2023-12-09T06:00:00.000Z",
+                                    "hora_liquidado": "21:52:18"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listar_liquidados"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/apartados/listar_no_liquidados": {
+            "get": {
+                "tags": ["Apartados"],
+                "summary": "Listado de todos los apartados que aun NO son LIQUIDADOS que existen en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los apartados NO LIQUIDADOS que existen en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los apartados que aun NO son LIQUIDADOS en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "producto": "Dormilonas Oro",
+                                    "nombre_usuario": "Martha",
+                                    "total_apartado": 4000,
+                                    "fecha_apartado": "2023-12-01T06:00:00.000Z",
+                                    "hora_apartado": "05:00:00"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listar_no_liquidados"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/apartados/create": {
+            "post": {
+                "tags": ["Apartados"],
+                "summary": "Inserta un nuevo apartado en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite crear un nuevo apartado la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo apartado?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "apartado",
+                        "in": "body",
+                        "description": "<p>Información del apartado que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoApartado"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apartado Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/apartados/update/{id}": {
+            "put": {
+                "tags": ["Apartados"],
+                "summary": "Actualiza los datos de un apartado en la tienda Ambar Store.",
+                "operationId": "update",
+                "description": "<p>Servicio que actualiza los datos de un apartado en la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del apartado.</p>",
+                        "required": true,
+                        "default": 10
+                    },
+                    {
+                        "name": "apartado",
+                        "in": "body",
+                        "description": "<p>Datos del apartado.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoApartado"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Apartado Actulizado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/apartados/delete/{id}": {
+            "delete": {
+                "tags": ["Apartados"],
+                "summary": "Elimina un Apartado registrado en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite eliminar un apartado en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>Eliminar apartado</strong></em></p>",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "<p>Información del apartado que se va a eliminar.</p>",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apartado Eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/listar_ventas_del_dia": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Listado de ventas del dia actual en la tienda Ambar Store.",
+                "operationId": "listar_ventas_del_dia",
+                "description": "<p>Servicio que permite listar las ventas realizadas en el transcurso del dia que se este presente en la tienda Ambar Store (Cajero).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del dia que se va a listar (dia en el que se solicite la consulta).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Listado de ventas del dia actual con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "total_sin_descuento": "8510",
+                                    "total": "8349",
+                                    "fecha": "2023-12-07",
+                                    "hora": "19:07:53",
+                                    "cajero": "Aldair"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listaVentasDelDia"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/crear_carrito": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Crea un nuevo carrito virtual en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite al vendedor crear un nuevo carrito virtual en el punto de Venta de la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo carrito?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "carrito",
+                        "in": "body",
+                        "description": "<p>Información del carrito que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/crearCarrito"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Carrito Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/agregar_un_producto": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Agrega un producto al carrito virtual en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite agregar de uno en uno el producto seleccionado al carrito virtual en el punto de Venta de la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para agregar un producto al carrito?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "carrito",
+                        "in": "body",
+                        "description": "<p>Informacion del producto que se va a agregar.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/agregar_un_producto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto agregado al carrito con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/mostrar_carrito/{id}": {
+            "get": {
+                "tags": ["Carritos"],
+                "summary": "Muestra el carrito virtual en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite mostrar el carrito virtual con sus productos con su respectiva cantidad y precio subtotal por cada producto de acuerdo a la cantidad de productos que esten en el carrito en el punto de Venta de la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para mostrar el carrito?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del carrito.</p>",
+                        "required": true,
+                        "default": 10
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Carrito mostrado con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "producto": "Dormilonas plata",
+                                    "descripcion": "Aretes",
+                                    "cantidad": 7,
+                                    "total_sin_descuento": 1610,
+                                    "descuento": 10,
+                                    "total": 1449,
+                                    "id_carrito": 1,
+                                    "id_producto": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/mostrarCarrito"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/eliminar_todo_el_producto": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Elimina todos los productos iguales dentro del carrito virtual en la tienda Ambar Store.",
+                "operationId": "delete",
+                "description": "<p>Servicio que elimina la cantidad total (todas las entidades) de un mismo producto del carrito virtual en el punto de Venta de la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "carrito",
+                        "in": "body",
+                        "description": "<p>Informacion del producto que se va a eliminar.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/eliminar_todo_el_producto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Producto eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "api/carritos/eliminar_un_producto": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Elimina un producto repetido del carrito virtual en la tienda Ambar Store.",
+                "operationId": "update",
+                "description": "<p>Servicio que elimina un producto repetido de uno en uno, seleccionado del carrito virtual en el punto de Venta de la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "carrito",
+                        "in": "body",
+                        "description": "<p>Informacion del producto que se va a eliminar.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/eliminar_todo_el_producto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Producto eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/comprar_carrito/{id}": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Confirmar compra de un carrito virtual en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite confirmar la compra el carrito virtual en el punto de Venta de la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para comprar el carrito?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del carrito que se va a comprar.</p>",
+                        "required": true,
+                        "default": 10
+                    },
+                    {
+                        "name": "carrito",
+                        "in": "body",
+                        "description": "<p>Informacion del carrito que se va a comprar.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/comprarCarrito"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Carrito comprado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/listar_ventas_dia": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Listado de ventas del dia seleccionado en la tienda Ambar Store.",
+                "operationId": "listar_ventas_dia",
+                "description": "<p>Servicio que permite listar las ventas realizadas en el dia que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del dia que se va a listar (dia seleccionado).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Listado de ventas del dia actual con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "total_sin_descuento": 8510,
+                                    "total": 8349,
+                                    "costo": 3490,
+                                    "ganancia": 4859,
+                                    "fecha": "2023-12-07T06:00:00.000Z",
+                                    "hora": "16:21:10",
+                                    "cajero": "Aldair"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listaVentas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/ticket_promedio_dia": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Ticket promedio del dia seleccionado en la tienda Ambar Store.",
+                "operationId": "ticket_promedio_dia",
+                "description": "<p>Servicio que permite obtener el ticket promedio del dia que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del dia que se va a consultar (dia seleccionado).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ticket_promedio": "8510"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ticketPromedio"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/listar_ventas_semana": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Listado de ventas de la semana seleccionada en la tienda Ambar Store.",
+                "operationId": "listar_ventas_semana",
+                "description": "<p>Servicio que permite listar las ventas realizadas en la semana que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha de la semana que se va a listar (semana seleccionada).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Listado de ventas de la semana seleccionada con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "total": "8510",
+                                    "costo": "3490",
+                                    "ganancia": "5020",
+                                    "fecha": "2023-12-07",
+                                    "hora": "19:07:53",
+                                    "cajero": "Aldair"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listaVentas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/ticket_promedio_semana": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Ticket promedio de la semana seleccionada en la tienda Ambar Store.",
+                "operationId": "ticket_promedio_semana",
+                "description": "<p>Servicio que permite obtener el ticket promedio de la semana que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha de la semana que se va a consultar (semana seleccionada).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ticket_promedio": "8510"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ticketPromedio"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/listar_ventas_mes": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Listado de ventas del mes seleccionado en la tienda Ambar Store.",
+                "operationId": "listar_ventas_mes",
+                "description": "<p>Servicio que permite listar las ventas realizadas en el mes que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del mes que se va a listar (mes seleccionado).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Listado de ventas del mes seleccionado con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "total": "8510",
+                                    "costo": "3490",
+                                    "ganancia": "5020",
+                                    "fecha": "2023-12-07",
+                                    "hora": "19:07:53",
+                                    "cajero": "Aldair"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listaVentas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/ticket_promedio_mes": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Ticket promedio del mes seleccionado en la tienda Ambar Store.",
+                "operationId": "ticket_promedio_mes",
+                "description": "<p>Servicio que permite obtener el ticket promedio del mes que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del mes que se va a consultar (mes seleccionado).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ticket_promedio": "8510"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ticketPromedio"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/listar_ventas_anio": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Listado de ventas del año seleccionado en la tienda Ambar Store.",
+                "operationId": "listar_ventas_anio",
+                "description": "<p>Servicio que permite listar las ventas realizadas en el año que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del año que se va a listar (año seleccionado).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Listado de ventas del año seleccionado con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "total": "8510",
+                                    "costo": "3490",
+                                    "ganancia": "5020",
+                                    "fecha": "2023-12-07",
+                                    "hora": "19:07:53",
+                                    "cajero": "Aldair"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listaVentas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/ticket_promedio_anio": {
+            "post": {
+                "tags": ["Carritos"],
+                "summary": "Ticket promedio del año seleccionado en la tienda Ambar Store.",
+                "operationId": "ticket_promedio_anio",
+                "description": "<p>Servicio que permite obtener el ticket promedio del año que se haya seleccionado en la tienda Ambar Store (Administrador).</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "body",
+                        "description": "<p>Fecha del año que se va a consultar (año seleccionado).</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/listarVentas"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ticket_promedio": "8510"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ticketPromedio"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/listar_ventas_siempre": {
+            "get": {
+                "tags": ["Carritos"],
+                "summary": "Listado de ventas de siempre en la tienda Ambar Store.",
+                "operationId": "listar_ventas_siempre",
+                "description": "<p>Servicio que permite listar las ventas realizadas en la tienda Ambar Store desde que se inicio el sistema (Administrador).</p>",
+                "responses": {
+                    "201": {
+                        "description": "Listado de todas las ventas registradas con exito",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "total": "8510",
+                                    "costo": "3490",
+                                    "ganancia": "5020",
+                                    "fecha": "2023-12-07",
+                                    "hora": "19:07:53",
+                                    "cajero": "Aldair"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/listaVentas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carritos/ticket_promedio_siempre": {
+            "get": {
+                "tags": ["Carritos"],
+                "summary": "Ticket promedio de siempre en la tienda Ambar Store.",
+                "operationId": "ticket_promedio_siempre",
+                "description": "<p>Servicio que permite obtener el ticket promedio desde que se inicio el sistema en la tienda Ambar Store (Administrador).</p>",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ticket_promedio": "8510"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ticketPromedio"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/descuentos/": {
+            "get": {
+                "tags": ["Descuentos"],
+                "summary": "Listado de todos los descuentos que existen en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los descuentos que existen en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los descuentos existentes en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "porcentaje": 10
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/descuentos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/descuentos/create": {
+            "post": {
+                "tags": ["Descuentos"],
+                "summary": "Inserta un nuevo descuento en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite crear un nuevo descuento la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo descuento?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "descuento",
+                        "in": "body",
+                        "description": "<p>Porcentaje de descuento que se añadirá.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoDescuento"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Descuento Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/descuentos/update/{id}": {
+            "put": {
+                "tags": ["Descuentos"],
+                "summary": "Actualiza los datos de un descuento en la tienda Ambar Store.",
+                "operationId": "update",
+                "description": "<p>Servicio que actualiza los datos de un descuento en la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del descuento.</p>",
+                        "required": true,
+                        "default": 10
+                    },
+                    {
+                        "name": "descuento",
+                        "in": "body",
+                        "description": "<p>Datos del descuento.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoDescuento"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Descuento Actulizado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/descuentos/delete/{id}": {
+            "delete": {
+                "tags": ["Descuentos"],
+                "summary": "Elimina un Descuento registrado en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite eliminar un descuento en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>Eliminar descuento</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "Descuento Eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "<p>id del descuento que se va a eliminar.</p>",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/productos/": {
+            "get": {
+                "tags": ["Productos"],
+                "summary": "Listado de todos los productos registrados en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los productos registrados en la tienda Ambar Store (Inventario).</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los productos existentes en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "producto": "Pantalon",
+                                    "precio": 200,
+                                    "costo": 100,
+                                    "cantidad": 10,
+                                    "descripcion": "Pantalon de mezclilla",
+                                    "id_tipoProducto": 1,
+                                    "id_tipoDescuento": 1
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/productos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productos/{id}": {
+            "get": {
+                "tags": ["Productos"],
+                "summary": "Busca un producto registrado en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de un producto registrado en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Que producto es el correspondiente con el id?</strong></em></p>",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "<p>id del producto.</p>",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "producto": "Pantalon",
+                                    "precio": 200,
+                                    "costo": 100,
+                                    "cantidad": 10,
+                                    "descripcion": "Pantalon de mezclilla",
+                                    "id_tipoProducto": 1,
+                                    "id_tipoDescuento": 1
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/producto"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productos/create": {
+            "post": {
+                "tags": ["Productos"],
+                "summary": "Inserta un nuevo producto en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite crear un nuevo producto la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo producto?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "producto",
+                        "in": "body",
+                        "description": "<p>Información del producto que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoProducto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productos/update/{id}": {
+            "put": {
+                "tags": ["Productos"],
+                "summary": "Actualiza los datos de un producto en la tienda Ambar Store.",
+                "operationId": "update",
+                "description": "<p>Servicio que actualiza los datos de un producto en la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del producto.</p>",
+                        "required": true,
+                        "default": 10
+                    },
+                    {
+                        "name": "producto",
+                        "in": "body",
+                        "description": "<p>Datos del producto.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoProducto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Producto Actulizado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productos/delete/{id}": {
+            "delete": {
+                "tags": ["Productos"],
+                "summary": "Elimina un Producto registrado en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite eliminar un producto en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>Eliminar producto</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "Producto Eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "<p>Información del producto que se va a eliminar.</p>",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/rangos_cliente/": {
+            "get": {
+                "tags": ["Rangos Cliente"],
+                "summary": "Listado de todos los rangos de cliente que existen en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los rangos de cliente que existen en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los rangos de cliente existentes en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "rango": "Cliente"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/rangosCliente"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/rangos_cliente/create": {
+            "post": {
+                "tags": ["Rangos Cliente"],
+                "summary": "Inserta un nuevo rango de cliente en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite crear un nuevo rango de cliente la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo rango de cliente?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "rangoCliente",
+                        "in": "body",
+                        "description": "<p>Información del rango de cliente que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoRangoCliente"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rango de Cliente Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/rangos_cliente/update/{id}": {
+            "put": {
+                "tags": ["Rangos Cliente"],
+                "summary": "Actualiza los datos de un rango de cliente en la tienda Ambar Store.",
+                "operationId": "update",
+                "description": "<p>Servicio que actualiza los datos de un rango de cliente en la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del rango de cliente.</p>",
+                        "required": true,
+                        "default": 10
+                    },
+                    {
+                        "name": "rangoCliente",
+                        "in": "body",
+                        "description": "<p>Datos del rango de cliente.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoRangoCliente"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Rango de Cliente Actulizado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/rangos_cliente/delete/{id}": {
+            "delete": {
+                "tags": ["Rangos Cliente"],
+                "summary": "Elimina un Rango de Cliente registrado en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite eliminar un rango de cliente en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>Eliminar rango de cliente</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "Rango de Cliente Eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "<p>Información del rango de cliente que se va a eliminar.</p>",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/tipos_productos/": {
+            "get": {
+                "tags": ["Tipos Productos"],
+                "summary": "Listado de todos los tipos de productos que existen en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los tipos de productos que existen en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los tipos de productos existentes en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "tipo_producto": "Pantalon"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/tiposProductos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipos_productos/create": {
+            "post": {
+                "tags": ["Tipos Productos"],
+                "summary": "Inserta un nuevo tipo de producto en la tienda Ambar Store.",
+                "operationId": "create",
+                "description": "<p>Servicio que permite crear un nuevo tipo de producto la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo tipo de producto?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "tipoProducto",
+                        "in": "body",
+                        "description": "<p>Información del tipo de producto que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoTipoProducto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tipo de Producto Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipos_productos/update/{id}": {
+            "put": {
+                "tags": ["Tipos Productos"],
+                "summary": "Actualiza los datos de un tipo de producto en la tienda Ambar Store.",
+                "operationId": "update",
+                "description": "<p>Servicio que actualiza los datos de un tipo de producto en la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "<p>id del tipo de producto.</p>",
+                        "required": true,
+                        "default": 10
+                    },
+                    {
+                        "name": "tipoProducto",
+                        "in": "body",
+                        "description": "<p>Datos del tipo de producto.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoTipoProducto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Tipo de Producto Actulizado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipos_productos/delete/{id}": {
+            "delete": {
+                "tags": ["Tipos Productos"],
+                "summary": "Elimina un Tipo de Producto registrado en la tienda Ambar Store.",
+                "description": "<p>Servicio que permite eliminar un tipo de producto en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>Eliminar tipo de producto</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "Tipo de Producto Eliminado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "<p>Información del tipo de producto que se va a eliminar.</p>",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/usuarios/validar_usuario": {
+            "post": {
+                "tags": ["Usuarios"],
+                "summary": "Valida si el usuario existe en la tienda Ambar Store.",
+                "operationId": "validar_usuario",
+                "description": "<p>Servicio que permite validar si el usuario existe en la tienda Ambar Store.</p>",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "usuario",
+                        "in": "body",
+                        "description": "<p>Datos del usuario que se va a validar.</p>",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/validarUsuario"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "nombre_usuario": "Aldair",
+                                    "nombres": "Aldair Gerardo Martinez Reyes",
+                                    "correo": "alda@gmail.com",
+                                    "contrasena": "12345",
+                                    "telefono": "9532764118",
+                                    "id_rango": "0",
+                                    "id_tipoUsuario": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/usuario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/listar_clientes": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Listado de todos los clientes registrados en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los clientes registrados en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes existentes en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "nombre_usuario": "Martha",
+                                    "telefono": "953729724"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/clientes"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/listar_cajeros": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Listado de todos los cajeros registrados en la tienda Ambar Store.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los cajeros registrados en la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes existentes en la tienda?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "nombre_usuario": "Aldair",
+                                    "nombres": "Aldair Gerardo Martinez Reyes",
+                                    "correo": "alda@gmail.com",
+                                    "telefono": "9532764118"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/cajeros"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/crear_cajero": {
+            "post": {
+                "tags": ["Usuarios"],
+                "summary": "Inserta un nuevo cajero en la tienda Ambar Store.",
+                "operationId": "crear_cajero",
+                "description": "<p>Servicio que permite crear un nuevo cajero la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo cajero?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "cajero",
+                        "in": "body",
+                        "description": "<p>Información del cajero que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoCajero"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cajero Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/crear_cliente": {
+            "post": {
+                "tags": ["Usuarios"],
+                "summary": "Inserta un nuevo cliente en la tienda Ambar Store.",
+                "operationId": "crear_cliente",
+                "description": "<p>Servicio que permite crear un nuevo cliente la tienda Ambar Store.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los datos necesarios para crear un nuevo cliente?</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "cliente",
+                        "in": "body",
+                        "description": "<p>Información del cliente que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nuevoCliente"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "listar_liquidados": {
+            "type": "object",
+            "properties": {
+                "producto": {
+                    "type": "string",
+                    "description": "Nombre del producto."
+                },
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                },
+                "total_apartado": {
+                    "type": "number",
+                    "description": "Total del apartado."
+                },
+                "fecha_apartado": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizo el apartado."
+                },
+                "hora_apartado": {
+                    "type": "string",
+                    "description": "Hora en la que se realizo el apartado."
+                },
+                "fecha_liquidado": {
+                    "type": "string",
+                    "description": "Fecha en la que se liquido el apartado."
+                },
+                "hora_liquidado": {
+                    "type": "string",
+                    "description": "Hora en la que se liquido el apartado."
+                }
+            }
+        },
+        "listar_no_liquidados": {
+            "type": "object",
+            "properties": {
+                "producto": {
+                    "type": "string",
+                    "description": "Nombre del producto."
+                },
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                },
+                "total_apartado": {
+                    "type": "number",
+                    "description": "Total del apartado."
+                },
+                "fecha_apartado": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizo el apartado."
+                },
+                "hora_apartado": {
+                    "type": "string",
+                    "description": "Hora en la que se realizo el apartado."
+                }
+            }
+        },
+        "apartados": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/apartado"
+            }
+        },
+        "nuevoApartado": {
+            "type": "object",
+            "properties": {
+                "fecha_apartado": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizo el apartado."
+                },
+                "hora_apartado": {
+                    "type": "string",
+                    "description": "Hora en la que se realizo el apartado."
+                },
+                "fecha_liquidado": {
+                    "type": "string",
+                    "description": "Fecha en la que se liquido el apartado."
+                },
+                "hora_liquidado": {
+                    "type": "string",
+                    "description": "Hora en la que se liquido el apartado."
+                },
+                "total_apartado": {
+                    "type": "number",
+                    "description": "Monto total del apartado relativo al precio del producto que se aparto."
+                },
+                "liquidado": {
+                    "type": "number",
+                    "description": "Indica si el apartado ya fue liquidado antes."
+                },
+                "id_tipoApartado": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla tipos_apartados."
+                },
+                "id_cliente": {
+                    "type": "number",
+                    "description": "Clave foranea del cliente que realizo el apartado."
+                },
+                "id_vendedor": {
+                    "type": "number",
+                    "description": "Clave foranea del vendedor que realizo el apartado."
+                },
+                "id_producto": {
+                    "type": "number",
+                    "description": "Clave foranea del producto que se aparto."
+                }
+            }
+        },
+        "listarVentas": {
+            "type": "object",
+            "properties": {
+                "fecha": {
+                    "type": "string",
+                    "description": "Fecha del dia en el que se solicito la consulta"
+                }
+            }
+        },
+        "listaVentasDelDia": {
+            "type": "object",
+            "properties": {
+                "total_sin_descuento": {
+                    "type": "number",
+                    "description": "Total de la venta sin descuento."
+                },
+                "total": {
+                    "type": "number",
+                    "description": "Total de la venta del dia."
+                },
+                "fecha": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizo la venta."
+                },
+                "hora": {
+                    "type": "string",
+                    "description": "Hora en la que se realizo la venta."
+                },
+                "cajero": {
+                    "type": "string",
+                    "description": "Nombre del cajero que realizo la venta."
+                }
+            }
+        },
+        "crearCarrito": {
+            "type": "object",
+            "properties": {
+                "confirmado": {
+                    "type": "number",
+                    "description": "Indica si el carrito con sus productos ya fue confirmado como vendido."
+                },
+                "fecha": {
+                    "type": "string",
+                    "description": "Fecha en la que se confirmo la venta del carrito."
+                },
+                "hora": {
+                    "type": "string",
+                    "description": "Hora en la que se confirmo la venta del carrito."
+                },
+                "monto_eventual": {
+                    "type": "number",
+                    "description": "Monto total del carrito relativo a los precios de los productos en el momento en el que se vendieron."
+                },
+                "costo_eventual": {
+                    "type": "number",
+                    "description": "Costo total del carrito relativo a los costos de los productos en el momento en el que se vendieron."
+                },
+                "id_cliente": {
+                    "type": "number",
+                    "description": "Clave foranea del cliente al que se le vendio el carrito."
+                },
+                "id_vendedor": {
+                    "type": "number",
+                    "description": "Clave foranea del vendedor que realizo el carrito."
+                }
+            }
+        },
+        "agregar_un_producto": {
+            "type": "object",
+            "properties": {
+                "cantidad": {
+                    "type": "number",
+                    "description": "Cantidad de productos que se agregaran al carrito (Se agrega de 1 en 1 por lo que cantidad siempre sera = 1)."
+                },
+                "id_carrito": {
+                    "type": "number",
+                    "description": "Clave foranea del carrito al que se le agregara el producto."
+                },
+                "id_producto": {
+                    "type": "number",
+                    "description": "Clave foranea del producto que se agregara al carrito."
+                }
+            }
+        },
+        "mostrarCarrito": {
+            "type": "object",
+            "properties": {
+                "producto": {
+                    "type": "string",
+                    "description": "Nombre del producto."
+                },
+                "descripcion": {
+                    "type": "string",
+                    "description": "Descripcion del producto."
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "Cantidad de productos que se agregaron al carrito."
+                },
+                "total_sin_descuento": {
+                    "type": "number",
+                    "description": "Precio del (los) producto(s) sin descuento."
+                },
+                "descuento": {
+                    "type": "number",
+                    "description": "Porcentaje de descuento que se aplico al producto."
+                },
+                "total": {
+                    "type": "number",
+                    "description": "Precio del (los) producto(s) con descuento."
+                },
+                "id_carrito": {
+                    "type": "number",
+                    "description": "Clave foranea del carrito al que se le agregara el producto."
+                },
+                "id_producto": {
+                    "type": "number",
+                    "description": "Clave foranea del producto que se agregara al carrito."
+                }
+            }
+        },
+        "eliminar_todo_el_producto": {
+            "type": "object",
+            "properties": {
+                "id_carrito": {
+                    "type": "number",
+                    "description": "Clave foranea del carrito al que se le eliminara el producto."
+                },
+                "id_producto": {
+                    "type": "number",
+                    "description": "Clave foranea del producto que se eliminara del carrito."
+                }
+            }
+        },
+        "comprarCarrito": {
+            "type": "object",
+            "properties": {
+                "fecha": {
+                    "type": "string",
+                    "description": "Fecha en la que se compro el carrito."
+                },
+                "hora": {
+                    "type": "string",
+                    "description": "Hora en la que se compro el carrito."
+                }
+            }
+        },
+        "listaVentas": {
+            "type": "object",
+            "properties": {
+                "total_sin_descuento": {
+                    "type": "number",
+                    "description": "Total de la venta sin descuento."
+                },
+                "total": {
+                    "type": "number",
+                    "description": "Total de la venta."
+                },
+                "costo": {
+                    "type": "number",
+                    "description": "Costo de la venta."
+                },
+                "ganancia": {
+                    "type": "number",
+                    "description": "Ganancia de la venta."
+                },
+                "fecha": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizo la venta."
+                },
+                "hora": {
+                    "type": "string",
+                    "description": "Hora en la que se realizo la venta."
+                },
+                "cajero": {
+                    "type": "string",
+                    "description": "Nombre del cajero que realizo la venta."
+                }
+            }
+        },
+        "ticketPromedio": {
+            "type": "object",
+            "properties": {
+                "ticket_promedio": {
+                    "type": "number",
+                    "description": "Ticket promedio de las ventas en el periodo de tiempo seleccionado."
+                }
+            }
+        },
+        "descuento": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "id que permite identificar al descuento."
+                },
+                "porcentaje": {
+                    "type": "number",
+                    "description": "Porcentaje de descuento."
+                }
+            }
+        },
+        "descuentos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/descuento"
+            }
+        },
+        "nuevoDescuento": {
+            "type": "object",
+            "properties": {
+                "porcentaje": {
+                    "type": "number",
+                    "description": "Porcentaje de descuento."
+                }
+            }
+        },
+        "producto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "id que permite identificar al producto."
+                },
+                "producto": {
+                    "type": "string",
+                    "description": "Nombre del producto."
+                },
+                "precio": {
+                    "type": "number",
+                    "description": "Precio del producto."
+                },
+                "costo": {
+                    "type": "number",
+                    "description": "Costo del producto."
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "Cantidad de productos en inventario."
+                },
+                "descripcion": {
+                    "type": "string",
+                    "description": "Descripcion corta del producto."
+                },
+                "id_tipoProducto": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla tipos_productos."
+                },
+                "id_tipoDescuento": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla descuentos."
+                }
+            }
+        },
+        "productos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/producto"
+            }
+        },
+        "nuevoProducto": {
+            "type": "object",
+            "properties": {
+                "producto": {
+                    "type": "string",
+                    "description": "Nombre del producto."
+                },
+                "precio": {
+                    "type": "number",
+                    "description": "Precio del producto."
+                },
+                "costo": {
+                    "type": "number",
+                    "description": "Costo del producto."
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "Cantidad de productos en inventario."
+                },
+                "descripcion": {
+                    "type": "string",
+                    "description": "Descripcion del producto."
+                },
+                "id_tipoProducto": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla tipos_productos."
+                },
+                "id_tipoDescuento": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla descuentos."
+                }
+            }
+        },
+        "rangoCliente": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "id que permite identificar al rango de cliente."
+                },
+                "rango": {
+                    "type": "string",
+                    "description": "Nombre del rango de cliente."
+                }
+            }
+        },
+        "rangosCliente": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/rangoCliente"
+            }
+        },
+        "nuevoRangoCliente": {
+            "type": "object",
+            "properties": {
+                "rango": {
+                    "type": "string",
+                    "description": "Nombre del rango de cliente."
+                }
+            }
+        },
+        "tipoProducto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "id que permite identificar al tipo de producto."
+                },
+                "tipo_producto": {
+                    "type": "string",
+                    "description": "Nombre del tipo de producto."
+                }
+            }
+        },
+        "tiposProductos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/tipoProducto"
+            }
+        },
+        "nuevoTipoProducto": {
+            "type": "object",
+            "properties": {
+                "tipo_producto": {
+                    "type": "string",
+                    "description": "Nombre del tipo de producto."
+                }
+            }
+        },
+        "validarUsuario": {
+            "type": "object",
+            "properties": {
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del usuario."
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del usuario."
+                },
+                "contrasena": {
+                    "type": "string",
+                    "description": "Contraseña del usuario."
+                }
+            }
+        },
+        "usuario": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "id que permite identificar al usuario."
+                },
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del usuario."
+                },
+                "nombres": {
+                    "type": "string",
+                    "description": "Nombre completo del usuario."
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del usuario."
+                },
+                "contrasena": {
+                    "type": "string",
+                    "description": "Contraseña del usuario."
+                },
+                "telefono": {
+                    "type": "string",
+                    "description": "Telefono del usuario."
+                },
+                "id_rango": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla rangos_cliente."
+                },
+                "id_tipoUsuario": {
+                    "type": "number",
+                    "description": "Clave foranea de la tabla tipos_usuarios."
+                }
+            }
+        },
+        "clientes": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/cliente"
+            }
+        },
+        "cliente": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "id que permite identificar al cliente."
+                },
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                },
+                "telefono": {
+                    "type": "string",
+                    "description": "Telefono del cliente."
+                }
+            }
+        },
+        "cajeros": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/cajero"
+            }
+        },
+        "cajero": {
+            "type": "object",
+            "properties": {
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del cajero."
+                },
+                "nombres": {
+                    "type": "string",
+                    "description": "Nombre completo del cajero."
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del cajero."
+                },
+                "telefono": {
+                    "type": "string",
+                    "description": "Telefono del cajero."
+                }
+            }
+        },
+        "nuevoCajero": {
+            "type": "object",
+            "properties": {
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del cajero."
+                },
+                "nombres": {
+                    "type": "string",
+                    "description": "Nombre completo del cajero."
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del cajero."
+                },
+                "contrasena": {
+                    "type": "string",
+                    "description": "Contraseña del cajero."
+                },
+                "telefono": {
+                    "type": "string",
+                    "description": "Telefono del cajero."
+                }
+            }
+        },
+        "nuevoCliente": {
+            "type": "object",
+            "properties": {
+                "nombre_usuario": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                },
+                "telefono": {
+                    "type": "string",
+                    "description": "Telefono del cliente."
+                }
+            }
+        }
+    }
+}

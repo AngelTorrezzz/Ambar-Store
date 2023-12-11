@@ -1,0 +1,72 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const database_1 = __importDefault(require("../database"));
+class ApartadosController {
+    list(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query('SELECT * FROM apartados'); //Se hace la consulta a la base de datos
+            res.json(respuesta); //Muestra el usuario
+        });
+    }
+    //CRUD
+    listOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params; //Se obtiene el id de los parametros de la peticion
+            const respuesta = yield database_1.default.query('SELECT * FROM apartados WHERE apartados.id = ?', [id]); //Se hace la consulta a la base de datos
+            if (respuesta.length > 0) { //Si hay un usuario con ese id
+                res.json(respuesta[0]); //Muestra el usuario
+                return;
+            }
+            res.status(404).json({ 'mensaje': 'Apartado no encontrado' }); //Si no hay un usuario con ese id
+        });
+    }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield database_1.default.query("INSERT INTO apartados set ?", [req.body]); //Se hace la consulta a la base de datos
+            res.json(resp); //Se muestra la respuesta
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params; //Se obtiene el id de los parametros de la peticion
+            console.log(req.params); //Se muestra el id
+            const resp = yield database_1.default.query("UPDATE apartados set ? WHERE apartados.id = ?", [req.body, id]); //Se hace la consulta a la base de datos
+            //req.body;
+            res.json(resp); //Se muestra la respuesta
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params; //Se obtiene el id de los parametros de la peticion
+            const resp = yield database_1.default.query(`DELETE FROM apartados WHERE apartados.id = ${id}`); //Se hace la consulta a la base de datos
+            res.json(resp); //Se muestra la respuesta
+        });
+    }
+    //SERVICIOS Personalizados
+    getLiquidados(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query('SELECT productos.producto, usuarios.nombre_usuario, apartados.total_apartado, apartados.fecha_apartado, apartados.hora_apartado, apartados.fecha_liquidado, apartados.hora_liquidado, apartados.hora_apartado FROM productos, apartados, usuarios WHERE productos.id = apartados.id_producto AND apartados.id_cliente = usuarios.id AND apartados.liquidado = 1;'); //Se hace la consulta a la base de datos
+            res.json(respuesta);
+        });
+    } //Falta ponerle el vendendor
+    getNoLiquidados(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query('SELECT productos.producto, usuarios.nombre_usuario, apartados.total_apartado, apartados.fecha_apartado, apartados.hora_apartado FROM productos, apartados, usuarios WHERE productos.id = apartados.id_producto AND apartados.id_cliente = usuarios.id AND apartados.liquidado = 0;'); //Se hace la consulta a la base de datos
+            res.json(respuesta); //Muestra el usuario
+        });
+    } //Falta ponerle la suma de los abonos, el restante y el vendedor
+}
+const apartadosController = new ApartadosController(); //Se exporta la clase usuariosController
+exports.default = apartadosController; //Se exporta la clase usuariosController
